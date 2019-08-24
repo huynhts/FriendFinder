@@ -6,6 +6,4 @@ module.exports = function (app) {
         res.json(friendsData);
       });
 
-    app.post("")
-
 };
