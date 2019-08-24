@@ -7,4 +7,8 @@ module.exports = function (app) {
         res.json(friendsData);
       });
 
+    app.post("/api/tables", function(req, res) {
+        friendsData.push(req.body);
+      });
+
 };
