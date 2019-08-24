@@ -297,7 +297,6 @@
 </html>
 
 <script type="text/javascript">
-
 $(document).ready(function () { 
 
     var surveyResults = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -390,12 +389,26 @@ $(document).ready(function () {
 
 
         //if statement to check surveyResults array for zeros within array.. if there is, alert user to complete survey;
+        for (i=0; i < surveyResults.length; i++){
+            if(surveyResults[i] === 0) {
+                var missingQ = +i + +1
 
-        $.post("/api/friends", newFriend)
-            .then(function(data) {
-            console.log("add.html", data);
-            });
+                alert("Please be sure to fill in an answer for question " + missingQ);
+            } return surveyResults;
+        };   
+        
+        $.post("/api/friends", newFriend).then(function(data) {
+                console.log("add.html", data);
+        });
+                    
+        findFriend();
     });
+
+    function findFriend (){
+        $.get("/api/friends", function(friendsData){
+            console.log(friendsData);
+        })
+    }
 
 });
 </script>
