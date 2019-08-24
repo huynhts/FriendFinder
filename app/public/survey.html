@@ -401,6 +401,8 @@ $(document).ready(function () {
         $.post("/api/friends", newFriend).then(function(data) {
             console.log("add.html", data);
         });
+
+        findFriend();
     };
 
     function checkAnswers () {
