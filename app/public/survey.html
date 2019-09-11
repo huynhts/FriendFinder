@@ -297,10 +297,10 @@
 </html>
 
 <script type="text/javascript">
-$(document).ready(function () { 
-
-    var surveyResults = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+$(document).ready(function () {
+    var surveyResults = [0,0,0,0,0,0,0,0,0,0]; 
     var count = 0;
+    var topMatch = "";
 
     $(".q1").on("click", function() {
         var ans1 = +$('input[name=inlineRadioOptions1]:checked').val();
@@ -423,8 +423,36 @@ $(document).ready(function () {
     function findFriend (){
         $.get("/api/friends", function(friendsData){
             console.log(friendsData);
-        })
-    }
+
+            // loop through each object in array and find total difference.. lock in that object as highest place object id and compare if next object total diff is greater.. if it is replace highest match object id.. do so until every object in array has been checked. 
+        });
+    };
+
+    function matchFriend() {
+        var currentCheck = 0;
+        var minScore = 40;
+
+        $.get("/api/friends", function(friendsData){
+            for (i=0; i <friendsData.length; i++){
+                for (j=0; j < surveyResults.length; j++){
+                    var diff = Math.abs(+friendsData[i].scores[j] - +surveyResults[j]);
+                    currentCheck += diff;
+                };
+
+                if (currenCheck < minScore){
+                    topMatch = friendsData[i].name;
+                    minScore = currentCheck;
+
+                    console.log ("Lowest Difference: " + minScore + "/nCurrent Top Match is " + topMatch);
+                    
+                    currentCheck = 0;
+                    console.log("Reset Current Check to " + currentCheck);
+                } else {
+                    currentCheck = 0;
+                }
+            }
+        });
+    };
 
 });
 </script>
